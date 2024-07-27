@@ -1,100 +1,87 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import { useState } from "react";
 
-function Header(props) {
-  console.log(props, props.title);
+function Header() {
   return (
-    <header>
-      <h1>
-        <a
-          href="/"
-          onClick={function (event) {
-            event.preventDefault();
-            props.onChangeMode();
-          }}
-        >
-          {props.title}
-        </a>
-      </h1>
+    <header className="header">
+      <h1>신발 상품 목록</h1>
+      <p>현재 6개의 상품이 있습니다.</p>
     </header>
   );
 }
 
-function Nav(props) {
-  const lis = [];
-  for (let i = 0; i < props.topics.length; i++) {
-    let t = props.topics[i];
-    lis.push(
-      <li key={t.id}>
-        <a
-          id={t.id}
-          href={"/read/" + t.id}
-          onClick={(event) => {
-            event.preventDefault();
-            props.onChangeMode(Number(event.target.id));
-          }}
-        >
-          {t.title}
-        </a>
-      </li>
-    );
-  }
+function Item(props) {
   return (
-    <nav>
-      <ol>{lis}</ol>
-    </nav>
-  );
-}
-
-function Article(props) {
-  return (
-    <article>
-      <h2>{props.title}</h2>
-      {props.body}
-    </article>
+    <div className="item">
+      <img src={props.image} alt={props.name} />
+      <h3>{props.name}</h3>
+      <p>{props.intro}</p>
+      <h3>{props.price}</h3>
+      <button>담기</button>
+    </div>
   );
 }
 
 function App() {
-  const [mode, setMode] = useState("WELCOME");
-  const [id, setId] = useState(null);
-  const topics = [
-    { id: 1, title: "html", body: "html is ..." },
-    { id: 2, title: "css", body: "css is ..." },
-    { id: 3, title: "js", body: "js is ..." },
+  const items = [
+    {
+      id: 1,
+      name: "브랜드A",
+      intro: "편안하고 착용감이 좋은 신발",
+      price: "35,000원",
+      image: "./images/shoes.png",
+    },
+    {
+      id: 2,
+      name: "브랜드A",
+      intro: "힙한 컬러가 매력적인 신발",
+      price: "25,000원",
+      image: "./images/shoes.png",
+    },
+    {
+      id: 3,
+      name: "브랜드B",
+      intro: "편안하고 착용감이 좋은 신발",
+      price: "35,000원",
+      image: "./images/shoes.png",
+    },
+    {
+      id: 4,
+      name: "브랜드B",
+      intro: "힙한 컬러가 매력적인 신발",
+      price: "35,000원",
+      image: "./images/shoes.png",
+    },
+    {
+      id: 5,
+      name: "브랜드C",
+      intro: "편안하고 착용감이 좋은 신발",
+      price: "35,000원",
+      image: "./images/shoes.png",
+    },
+    {
+      id: 6,
+      name: "브랜드C",
+      intro: "힙한 컬러가 매력적인 신발",
+      price: "35,000원",
+      image: "./images/shoes.png",
+    },
   ];
-  let content = null;
-  if (mode === "WELCOME") {
-    content = <Article title="Welcome" body="Hello, Web"></Article>;
-  } else if (mode === "READ") {
-    let title,
-      body = null;
-    for (let i = 0; i < topics.length; i++) {
-      if (topics[i].id === id) {
-        title = topics[i].title;
-        body = topics[i].body;
-      }
-    }
-    content = <Article title={title} body={body}></Article>;
-  }
 
   return (
-    <div>
-      <Header
-        title="REACT"
-        onChangeMode={function () {
-          setMode("WELCOME");
-        }}
-      ></Header>
-      <Nav
-        topics={topics}
-        onChangeMode={(_id) => {
-          setMode("READ");
-          setId(_id);
-        }}
-      ></Nav>
-      {content}
+    <div className="app">
+      <Header />
+      <div className="items">
+        {items.map((item) => (
+          <Item
+            key={item.id}
+            name={item.name}
+            intro={item.intro}
+            price={item.price}
+            image={item.image}
+          />
+        ))}
+      </div>
     </div>
   );
 }
