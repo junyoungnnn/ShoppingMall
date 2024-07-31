@@ -18,6 +18,7 @@ function Item(props) {
       <p>{props.intro}</p>
       <h3>{props.price}</h3>
       <button>담기</button>
+      <button>구매</button>
     </div>
   );
 }
