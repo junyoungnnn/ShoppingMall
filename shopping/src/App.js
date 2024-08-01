@@ -1,27 +1,10 @@
+// App.js
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-
-function Header() {
-  return (
-    <header className="header">
-      <h1>신발 상품 목록</h1>
-      <p>현재 6개의 상품이 있습니다.</p>
-    </header>
-  );
-}
-
-function Item(props) {
-  return (
-    <div className="item">
-      <img src={props.image} alt={props.name} />
-      <h3>{props.name}</h3>
-      <p>{props.intro}</p>
-      <h3>{props.price}</h3>
-      <button>담기</button>
-      <button>구매</button>
-    </div>
-  );
-}
+import MyCard from "./MyCard"; // Ensure this path is correct
+import Header from "./Header"; // Ensure this path is correct
+import Item from "./Item"; // Ensure this path is correct
 
 function App() {
   const items = [
@@ -70,20 +53,31 @@ function App() {
   ];
 
   return (
-    <div className="app">
-      <Header />
-      <div className="items">
-        {items.map((item) => (
-          <Item
-            key={item.id}
-            name={item.name}
-            intro={item.intro}
-            price={item.price}
-            image={item.image}
+    <Router>
+      <div className="app">
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="items">
+                {items.map((item) => (
+                  <Item
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    intro={item.intro}
+                    price={item.price}
+                    image={item.image}
+                  />
+                ))}
+              </div>
+            }
           />
-        ))}
+          <Route path="/mycard" element={<MyCard />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
