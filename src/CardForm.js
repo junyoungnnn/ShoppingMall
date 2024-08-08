@@ -48,13 +48,13 @@ function CardForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newCard = {
-      cardNumber: maskCardNumber(cardNumber),
-      expiryDate: expiryDate
-        ? `${expiryDate.slice(0, 2)}/${expiryDate.slice(2, 4)}`
-        : "MM/YY",
-      cardholderName: cardholderName || "NAME",
-    };
+    // const newCard = {
+    //   cardNumber: maskCardNumber(cardNumber),
+    //   expiryDate: expiryDate
+    //     ? `${expiryDate.slice(0, 2)}/${expiryDate.slice(2, 4)}`
+    //     : "MM/YY",
+    //   cardholderName: cardholderName || "NAME",
+    // };
   };
 
   return (
